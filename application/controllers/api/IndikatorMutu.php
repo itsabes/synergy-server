@@ -208,6 +208,44 @@ class IndikatorMutu extends REST_Controller {
         }
     }
 
+    public function updateStatusAcc_put() {
+
+        $statusUpdate = "0";
+        if($this->put()['statusAcc']=="0"){
+            $statusUpdate = "1";
+        }else if($this->put()['statusAcc']=="1"){
+            $statusUpdate = "0";
+        }
+
+        $dataPut = array(
+                'STATUS_ACC' => $statusUpdate,
+                'UPDATE_DATE' => date("Y-m-d H:i:s"),
+                'USER_ACC' => "admin"
+                );
+
+        $id = $this->put()['id'];
+        if($id) {
+            $result = $this->indikatorMutu_model->update($dataPut, $id);
+            if($result) {
+                $indikatorMutu = $this->indikatorMutu_model->get($id);
+                $this->set_response($indikatorMutu, REST_Controller::HTTP_OK);
+            }else{
+                $response = [
+                    'status' => REST_Controller::HTTP_BAD_REQUEST,
+                    'message' => 'database error',
+                ];
+                $this->set_response($response, REST_Controller::HTTP_BAD_REQUEST);
+            }
+            
+        }else{
+            $response = [
+                'status' => REST_Controller::HTTP_NOT_FOUND,
+                'message' => 'param ID can\'t be null',
+            ];
+            $this->set_response($response, REST_Controller::HTTP_NOT_FOUND);
+        }
+    }
+
 }
 
 
