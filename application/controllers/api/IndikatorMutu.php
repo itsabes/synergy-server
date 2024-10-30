@@ -64,7 +64,7 @@ class IndikatorMutu extends REST_Controller {
         $this->set_response($indikatorMutu, REST_Controller::HTTP_OK);
     }
 
-    public function composeData($dataPost){
+    public function composeData($dataPost,$isInsert){
         $data = [
             'LEVEL' => $this->getLevel($dataPost['unit'],$dataPost['tahun']),
             'JUDUL_INDIKATOR' => $dataPost['judulIndikator'],
@@ -102,9 +102,15 @@ class IndikatorMutu extends REST_Controller {
             'STATUS_ACC' => 0,
             'PROCESS_TYPE' => $dataPost['unit'],
             'DAILY_MONTHLY_SPECIAL' => '',
-            'CREATE_DATE' => date("Y-m-d H:i:s")
 
-        ];     
+        ];   
+        
+        // Set 'CREATE_DATE' if $isInsert is true; otherwise, set 'UPDATE_DATE'
+        if ($isInsert) {
+            $data['CREATE_DATE'] = date("Y-m-d H:i:s");
+        } else {
+            $data['UPDATE_DATE'] = date("Y-m-d H:i:s");
+        }
 
         return $data;
     }
@@ -131,7 +137,7 @@ class IndikatorMutu extends REST_Controller {
 
     public function index_post() {
         $dataPost = $this->post();
-        $data = $this->composeData($dataPost);
+        $data = $this->composeData($dataPost,true);
         $id = $this->indikatorMutu_model->save($data);
         if($id !== FALSE) {
             
@@ -156,8 +162,8 @@ class IndikatorMutu extends REST_Controller {
     }
 
     public function index_put() {
-        $dataPut = $this->put();
-        $id = $dataPut['id'];
+        $dataPut = $this->composeData($this->put(),false);
+        $id = $this->put()['id'];
         if($id) {
             $result = $this->indikatorMutu_model->update($dataPut, $id);
             if($result) {

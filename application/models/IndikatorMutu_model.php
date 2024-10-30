@@ -26,8 +26,15 @@ class IndikatorMutu_Model extends CI_Model
 
     public function save($data){
         $this->db->insert('sikat_profile_indikator', $data);
-        $this->db->set('create_date', 'NOW()', FALSE);
         return $this->db->insert_id();
+    }
+
+    public function update($data, $id){
+        $this->db->where('id', $id);
+        $this->db->update('sikat_profile_indikator', $data);
+        // Get the number of affected rows
+        $affectedRows = $this->db->affected_rows();
+        return $affectedRows;
     }
 
     public function delete($id)
@@ -39,6 +46,7 @@ class IndikatorMutu_Model extends CI_Model
         return $data_ikp;
     }
 
+    /*
     public function update(array $obj, $id)
     {
         $ids = explode(";",$id);
@@ -59,6 +67,7 @@ class IndikatorMutu_Model extends CI_Model
         return $data_ikp;
     }
 
+
     public function get($id) {
         $ids = explode(";",$id);
         $tglWaktuArr = explode(" ", $ids[0]);
@@ -68,6 +77,15 @@ class IndikatorMutu_Model extends CI_Model
         ->join('sikat_ikp as ikp', 'ikp.tgl_kejadian=insiden.tgl_kejadian and ikp.jam_kejadian=insiden.jam_kejadian and ikp.no_rawat=insiden.no_rawat', 'left')
         ->join('petugas as petugas', 'petugas.nip=insiden.nip', 'left')
         ->where(['insiden.tgl_kejadian' => $tglWaktuArr[0], 'insiden.jam_kejadian' => $tglWaktuArr[1], 'insiden.no_rawat' => $ids[1]]);
+        return $this->db->get()->row();
+    }
+    */
+    public function get($id) {
+        $this->db
+        ->select('*')
+        ->from('sikat_profile_indikator')
+        ->where('id = '.$id);
+        
         return $this->db->get()->row();
     }
 
