@@ -104,15 +104,22 @@ class IndikatorMutu extends REST_Controller {
             'DAILY_MONTHLY_SPECIAL' => '',
             'CREATE_DATE' => date("Y-m-d H:i:s")
 
-        ];        
+        ];     
 
         return $data;
     }
 
     public function getLevel($unit,$tahun){
         //query
+        $defaultLevel = 1;
         $level = $this->sikat_profile_indikator_model->getLevel($unit,$tahun);
-        return $level[0]->result;
+        if (isset($level[0]->result) && $level[0]->result != null) {
+            $level = $level[0]->result;
+        }else{
+            $level = $defaultLevel;
+        }
+
+        return $level;
     }
 
     public function getProcessType($unit){
