@@ -39,6 +39,16 @@ class IndikatorMutu_Model extends CI_Model
 
     public function delete($id)
     {
+        $this->db->where('id', $id);
+        $this->db->delete('sikat_profile_indikator');
+        // Get the number of affected rows
+        $affectedRows = $this->db->affected_rows();
+        return $affectedRows;
+    }
+
+    /*
+    public function delete($id)
+    {
         $ids = explode(";",$id);
         $tglWaktuArr = explode(" ", $ids[0]);
         $data_ikp = $this->db->where(['tgl_kejadian' => $tglWaktuArr[0], 'jam_kejadian' => $tglWaktuArr[1], 'no_rawat' => $ids[1]])->delete('insiden_keselamatan_pasien');
@@ -46,7 +56,7 @@ class IndikatorMutu_Model extends CI_Model
         return $data_ikp;
     }
 
-    /*
+
     public function update(array $obj, $id)
     {
         $ids = explode(";",$id);
