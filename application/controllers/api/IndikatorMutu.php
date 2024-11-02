@@ -97,7 +97,13 @@ class IndikatorMutu extends REST_Controller {
             'ISI_SAMPLE' => $dataPost['isiSampel'],
             'RENCANA_ANALISIS' => $dataPost['rencanaAnalisis'],
             'INSTRUMEN_PENGAMBILAN' => $dataPost['instrumenPengambilan'],
+            'ISI_INSTRUMEN' => $dataPost['isiInstrumen'],
+            'BESAR_SAMPEL' => $dataPost['besarSampel'],
             'PENANGGUNG_JAWAB' => $dataPost['penanggungJawab'],
+            'IS_NASIONAL' => $dataPost['isNasional'],
+            'IS_UNIT' => $dataPost['isUnit'],
+            'IS_PRIORITAS_UNIT' => $dataPost['isPrioritasUnit'],
+            'IS_PRIORITAS_RS' => $dataPost['isPrioritasRS'],
             'TARGET_PENCAPAIAN' => $dataPost['targetPencapaian'],
             'STATUS_ACC' => 0,
             'PROCESS_TYPE' => $dataPost['unit'],
@@ -162,6 +168,7 @@ class IndikatorMutu extends REST_Controller {
     }
 
     public function index_put() {
+
         $dataPut = $this->composeData($this->put(),false);
         $id = $this->put()['id'];
         if($id) {
