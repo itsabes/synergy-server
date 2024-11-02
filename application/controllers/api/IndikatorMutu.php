@@ -141,7 +141,7 @@ class IndikatorMutu extends REST_Controller {
         $id = $this->indikatorMutu_model->save($data);
         if($id !== FALSE) {
             
-            // $indikatorMutu = $this->indikatorMutu_model->get($id);
+            $indikatorMutu = $this->indikatorMutu_model->get($id);
             // $settings =  $this->settings_model->get();
             // $data = json_decode(json_encode($indikatorMutu), true);
             // $data['to_email'] = $settings->notif_email_ikp;

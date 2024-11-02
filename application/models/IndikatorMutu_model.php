@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class IndikatorMutu_Model extends CI_Model
 {
+    /*
     public function create(array $obj)
     {
         $id = $obj['tgl_kejadian'] . ';' . $obj['no_rawat'];
@@ -23,6 +24,7 @@ class IndikatorMutu_Model extends CI_Model
         $this->db->insert('sikat_ikp', $data_sikat);
         return $id;
     }
+    */
 
     public function save($data){
         $this->db->insert('sikat_profile_indikator', $data);
@@ -99,6 +101,7 @@ class IndikatorMutu_Model extends CI_Model
         return $this->db->get()->row();
     }
 
+    /*
     public function allPetugas()
     {
         return $this->db->get('petugas')->result();
@@ -181,6 +184,7 @@ class IndikatorMutu_Model extends CI_Model
         if(isset($tanggalSampai)) $this->db->where('ikp.tgl_kejadian <=',$tanggalSampai);
         return $this->db->get()->result_array();
     }
+    */
 
 }
 

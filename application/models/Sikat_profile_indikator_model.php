@@ -10,9 +10,10 @@ class Sikat_Profile_Indikator_Model extends CI_Model
 
     public function getByQuery($tahun,$unit) {
         $this->db
-        ->select('*', false)
+        ->select('pro.*,an.id as id_analisa', false)
         ->from('sikat_profile_indikator as pro')
-        //->join('sikat_profile_type as tp', 'pro.process_type=tp.type', 'left')
+        ->join('sikat_profile_type as tp', 'pro.process_type=tp.type', 'left')
+        ->join('sikat_analisa_indikator as an', 'an.id_profile_indikator=pro.id', 'left')
         ->order_by('pro.create_date', 'DESC');
         if (!isset($tahun)) {
             $this->db->limit(250);
@@ -27,7 +28,3 @@ class Sikat_Profile_Indikator_Model extends CI_Model
         return $this->db->query("SELECT max(level)+1 as result FROM sikat_profile_indikator WHERE tahun='".$tahun."' and PROCESS_TYPE='".$unit."'")->result();
     }
 }
-
-
-
-
