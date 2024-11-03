@@ -69,8 +69,8 @@ class IndikatorMutu extends REST_Controller {
             'LEVEL' => $this->getLevel($dataPost['unit'],$dataPost['tahun']),
             'JUDUL_INDIKATOR' => $dataPost['judulIndikator'],
             'TAHUN' => $dataPost['tahun'],
-            'ISI_POPULASI' => '',
-            'USER_ACC' => '',
+            //'ISI_POPULASI' => '',
+            //'USER_ACC' => $dataPost['tahun'],
             'DASAR_PEMIKIRAN' => $dataPost['dasarPemikiran'],
             'IS_EFEKTIF' => $dataPost['isEfektif'],
             'IS_EFISIEN' => $dataPost['isEfisien'],
@@ -105,9 +105,9 @@ class IndikatorMutu extends REST_Controller {
             'IS_PRIORITAS_UNIT' => $dataPost['isPrioritasUnit'],
             'IS_PRIORITAS_RS' => $dataPost['isPrioritasRS'],
             'TARGET_PENCAPAIAN' => $dataPost['targetPencapaian'],
-            'STATUS_ACC' => 0,
+            //'STATUS_ACC' => 0,
             'PROCESS_TYPE' => $dataPost['unit'],
-            'DAILY_MONTHLY_SPECIAL' => '',
+            //'DAILY_MONTHLY_SPECIAL' => '',
 
         ];   
         
