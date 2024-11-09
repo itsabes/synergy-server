@@ -27,4 +27,16 @@ class Sikat_Profile_Indikator_Model extends CI_Model
     public function getLevel($unit,$tahun){
         return $this->db->query("SELECT max(level)+1 as result FROM sikat_profile_indikator WHERE tahun='".$tahun."' and PROCESS_TYPE='".$unit."'")->result();
     }
+
+    public function getByQueryWithAnalisa($unit) {
+
+    $this->db->select('an.id as analisa_id,an.analisa,an.rekomendasi,tp.*', false)
+    ->from('sikat_profile_indikator as tp')
+    ->join('sikat_analisa_indikator as an', 'an.id_profile_indikator = tp.id', 'left')
+    ->order_by('an.create_date', 'DESC');  
+
+    if(isset($unit)) $this->db->where('tp.process_type =',$unit);
+    return $this->db->get()->result_array();
+}
+
 }
