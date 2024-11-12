@@ -15,11 +15,24 @@ class LembarPdsa extends REST_Controller {
         $this->load->model('lembarPdsaSiklus_Model');
     }
 
+    public function index_get() {
+        $id = $this->get('id');
+        $lembarPdsa = array();
+        if($id != null) {
+            $lembarPdsa =  $this->lembarPdsa_model->get($id);
+            $lembarPdsa->SIKLUS = $this->lembarPdsaSiklus_Model->get($id);
+
+        }else{
+            $lembarPdsa = $this->lembarPdsa_model->all();
+        }
+        $this->set_response($lembarPdsa, REST_Controller::HTTP_OK);
+    }
+
     public function getByQuery_get() {
         $unit = $this->get('unit');
-        $indikator = array();
-        $indikator =  $this->lembarPdsa_model->getByQuery($unit);
-        $this->set_response($indikator, REST_Controller::HTTP_OK);
+        $lembarPdsa = array();
+        $lembarPdsa =  $this->lembarPdsa_model->getByQuery();
+        $this->set_response($lembarPdsa, REST_Controller::HTTP_OK);
     }
 
     public function saveSiklusData($dataPost,$lembarPdsaId){
@@ -35,7 +48,13 @@ class LembarPdsa extends REST_Controller {
                 'TINDAKAN_SELANJUTNYA' => $siklus['tindakanSelanjutnya']
             ];
 
-            $this->lembarPdsaSiklus_Model->save($siklusData);
+            if (!empty($siklus['siklusId'])) {
+                // Update existing record
+                $this->lembarPdsaSiklus_Model->update($siklusData, $siklus['siklusId']);
+            } else {
+                // Insert new record
+                $this->lembarPdsaSiklus_Model->save($siklusData);
+            }
         }
 
     }
@@ -55,10 +74,11 @@ class LembarPdsa extends REST_Controller {
             'MASALAH' => $dataPost['masalah'],
             'TUJUAN' => $dataPost['tujuan'],
             'UKURAN' => $dataPost['ukuran'],
+            'ANGGARAN' => $dataPost['anggaran'],
             'PERBAIKAN' => $dataPost['perbaikan'],
             'PERIODE_WAKTU' => $dataPost['periodeWaktu'],
-            'TANGGA_MULAI' => $dataPost['tanggalMulai'],
-            'TANGGA_SELESAI' => $dataPost['tanggalSelesai'],
+            'TANGGAL_MULAI' => $dataPost['tanggalMulai'],
+            'TANGGAL_SELESAI' => $dataPost['tanggalSelesai'],
         ];   
     
         if ($isInsert) {
@@ -99,18 +119,15 @@ class LembarPdsa extends REST_Controller {
     }
 
     public function index_put() {
-        $id = $this->put()['idx'];
+        $id = $this->put()['id'];
         $dataPut = $this->put();
-        $data =  array(
-            "analisa" => $dataPut['analisa'],
-            "rekomendasi" => $dataPut['rekomendasi'],
-            "update_date" => date("Y-m-d H:i:s")
-        );
+        $data = $this->composeData($dataPut,true);
         if($id) {
             $result = $this->lembarPdsa_model->update($data, $id);
             if($result) {
-                $analisaIndikator = $this->lembarPdsa_model->get($id);
-                $this->set_response($analisaIndikator, REST_Controller::HTTP_OK);
+                $lembarPdsa = $this->lembarPdsa_model->get($id);
+                $this->saveSiklusData($dataPut,$id);
+                $this->set_response($lembarPdsa, REST_Controller::HTTP_OK);
             }else{
                 $response = [
                     'status' => REST_Controller::HTTP_BAD_REQUEST,
@@ -131,8 +148,9 @@ class LembarPdsa extends REST_Controller {
     public function delete_get() {
         $id = $this->get('id');
         if($id) {
-            $result = $this->lembarPdsa_model->delete($id);
+            $result = $this->lembarPdsaSiklus_Model->delete($id);
             if($result) {
+                $this->lembarPdsa_model->delete($id);
                 $this->set_response('deleted', REST_Controller::HTTP_OK);
             }else{
                 $response = [

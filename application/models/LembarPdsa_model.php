@@ -35,6 +35,19 @@ class LembarPdsa_Model extends CI_Model
         return $this->db->get()->row();
     }
 
+    public function getByQuery() {
+        $this->db
+        ->select('*', false)
+        ->from('sikat_lembar_pdsa as sl')
+       // ->join('sikat_siklus as ss', 'sl.id=ss.lembar_pdsa_id', 'left')
+        ->order_by('sl.create_date', 'DESC');
+        if (!isset($tahun)) {
+            $this->db->limit(250);
+        }
+
+        return $this->db->get()->result_array();
+    }
+
 }
 
 
