@@ -27,6 +27,7 @@ class AnalisaIndikator extends REST_Controller {
             "analisa" => $dataPost['analisa'],
             "rekomendasi" => $dataPost['rekomendasi'],
             "id_profile_indikator" => $dataPost['idx'],
+            "periode_analisa" => $dataPost['monthSelect'],
             "create_date" => date("Y-m-d H:i:s")
         );
 
@@ -59,6 +60,7 @@ class AnalisaIndikator extends REST_Controller {
         $data =  array(
             "analisa" => $dataPut['analisa'],
             "rekomendasi" => $dataPut['rekomendasi'],
+            "periode_analisa" => $dataPost['monthSelect'],
             "update_date" => date("Y-m-d H:i:s")
         );
         if($id) {

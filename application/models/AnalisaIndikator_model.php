@@ -4,15 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class AnalisaIndikator_model extends CI_Model
 {
 
-    public function getByQuery($unit,$id) {
+    public function getByQuery($unit) {
         $this->db
-        ->select('an.*, tp.JUDUL_INDIKATOR,tp.NUMERATOR,tp.DENUMERATOR,tp.TARGET_PENCAPAIAN,tp.PERIODE_ANALISA', false)
+        ->select('an.id,an.analisa,an.rekomendasi,an.periode_analisa as period, tp.JUDUL_INDIKATOR,tp.NUMERATOR,tp.DENUMERATOR,tp.TARGET_PENCAPAIAN,tp.PERIODE_ANALISA', false)
         ->from('sikat_analisa_indikator as an')
         ->join('sikat_profile_indikator as tp', 'an.id_profile_indikator=tp.id', 'left')
         ->order_by('an.create_date', 'DESC');
 
         if(isset($unit)) $this->db->where('tp.process_type =',$unit);
-        if(isset($id)) $this->db->where('an.id =',$id);
+        //if(isset($id)) $this->db->where('an.id =',$id);
         return $this->db->get()->result_array();
     }
 
