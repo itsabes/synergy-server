@@ -70,7 +70,7 @@ class IndikatorMutu extends REST_Controller {
             'JUDUL_INDIKATOR' => $dataPost['judulIndikator'],
             'TAHUN' => $dataPost['tahun'],
             //'ISI_POPULASI' => '',
-            //'USER_ACC' => $dataPost['tahun'],
+            'TARGET_PENCAPAIAN' => $dataPost['targetPencapaian'],
             'DASAR_PEMIKIRAN' => $dataPost['dasarPemikiran'],
             'IS_EFEKTIF' => $dataPost['isEfektif'],
             'IS_EFISIEN' => $dataPost['isEfisien'],
@@ -100,11 +100,9 @@ class IndikatorMutu extends REST_Controller {
             'ISI_INSTRUMEN' => $dataPost['isiInstrumen'],
             'BESAR_SAMPEL' => $dataPost['besarSampel'],
             'PENANGGUNG_JAWAB' => $dataPost['penanggungJawab'],
-            'IS_NASIONAL' => $dataPost['isNasional'],
-            'IS_UNIT' => $dataPost['isUnit'],
-            'IS_PRIORITAS_UNIT' => $dataPost['isPrioritasUnit'],
-            'IS_PRIORITAS_RS' => $dataPost['isPrioritasRS'],
-            'TARGET_PENCAPAIAN' => $dataPost['targetPencapaian'],
+            'isINM' => $dataPost['isINM'],
+            'isIMPRs' => $dataPost['isIMPRs'],
+            'isIMPUnit' => $dataPost['isIMPUnit'],
             //'STATUS_ACC' => 0,
             'PROCESS_TYPE' => $dataPost['unit'],
             //'DAILY_MONTHLY_SPECIAL' => '',
@@ -227,7 +225,7 @@ class IndikatorMutu extends REST_Controller {
         $dataPut = array(
                 'STATUS_ACC' => $statusUpdate,
                 'UPDATE_DATE' => date("Y-m-d H:i:s"),
-                'USER_ACC' => "admin"
+                'USER_ACC' => $this->put()['userAcc']
                 );
 
         $id = $this->put()['id'];
