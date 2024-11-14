@@ -6,7 +6,7 @@ class AnalisaIndikator_model extends CI_Model
 
     public function getByQuery($unit,$id) {
         $this->db
-        ->select('an.*, tp.JUDUL_INDIKATOR,tp.NUMERATOR,tp.DENUMERATOR,tp.TARGET_PENCAPAIAN', false)
+        ->select('an.*, tp.JUDUL_INDIKATOR,tp.NUMERATOR,tp.DENUMERATOR,tp.TARGET_PENCAPAIAN,tp.PERIODE_ANALISA', false)
         ->from('sikat_analisa_indikator as an')
         ->join('sikat_profile_indikator as tp', 'an.id_profile_indikator=tp.id', 'left')
         ->order_by('an.create_date', 'DESC');
