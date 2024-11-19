@@ -103,7 +103,6 @@ class IndikatorMutu extends REST_Controller {
             'isINM' => $dataPost['isINM'],
             'isIMPRs' => $dataPost['isIMPRs'],
             'isIMPUnit' => $dataPost['isIMPUnit'],
-            //'STATUS_ACC' => 0,
             'PROCESS_TYPE' => $dataPost['unit'],
             //'DAILY_MONTHLY_SPECIAL' => '',
 
@@ -112,6 +111,7 @@ class IndikatorMutu extends REST_Controller {
         // Set 'CREATE_DATE' if $isInsert is true; otherwise, set 'UPDATE_DATE'
         if ($isInsert) {
             $data['CREATE_DATE'] = date("Y-m-d H:i:s");
+            $data['STATUS_ACC'] = 0;
         } else {
             $data['UPDATE_DATE'] = date("Y-m-d H:i:s");
         }
