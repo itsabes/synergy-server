@@ -22,7 +22,7 @@ class Dynamic extends REST_Controller {
         $where = array(
             "process_type" =>  $process_type
         );
-        $dynamicData=$this->sikat_profile_indikator_model->getByQueryWithAnalisa($process_type);
+        $dynamicData=$this->sikat_profile_indikator_model->getByQuery(null,$process_type,);
         $this->set_response($dynamicData, REST_Controller::HTTP_OK);
     }
 
