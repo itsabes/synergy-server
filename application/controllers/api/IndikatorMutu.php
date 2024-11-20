@@ -104,6 +104,7 @@ class IndikatorMutu extends REST_Controller {
             'isIMPRs' => $dataPost['isIMPRs'],
             'isIMPUnit' => $dataPost['isIMPUnit'],
             'PROCESS_TYPE' => $dataPost['unit'],
+            'REVIEW_ULANG' => $dataPost['reviewUlang'],
             //'DAILY_MONTHLY_SPECIAL' => '',
 
         ];   
