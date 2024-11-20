@@ -41,6 +41,8 @@ class LembarPdsa extends REST_Controller {
             $siklusData = [
                 'LEMBAR_PDSA_ID' => $lembarPdsaId,
                 'RENCANA' => $siklus['rencana'],
+                'TANGGAL_MULAI' => $siklus['tanggalMulaiSiklus'],
+                'TANGGAL_SELESAI' => $siklus['tanggalSelesaiSiklus'],
                 'BERHARAP' => $siklus['berharap'],
                 'TINDAKAN' => $siklus['tindakan'],
                 'DIAMATI' => $siklus['diamati'],

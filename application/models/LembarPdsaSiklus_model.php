@@ -36,6 +36,8 @@ class LembarPdsaSiklus_Model extends CI_Model
                 TINDAKAN AS tindakan,
                 DIAMATI AS diamati,
                 PELAJARI AS pelajari,
+                TANGGAL_MULAI AS tanggalMulaiSiklus,
+                TANGGAL_SELESAI AS tanggalSelesaiSiklus,
                 TINDAKAN_SELANJUTNYA AS tindakanSelanjutnya
             ')
             ->from('sikat_siklus')
