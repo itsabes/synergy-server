@@ -103,8 +103,7 @@ class IndikatorMutu extends REST_Controller {
             'isINM' => $dataPost['isINM'],
             'isIMPRs' => $dataPost['isIMPRs'],
             'isIMPUnit' => $dataPost['isIMPUnit'],
-            'PROCESS_TYPE' => $dataPost['unit'],
-            'REVIEW_ULANG' => $dataPost['reviewUlang'],
+            'PROCESS_TYPE' => $dataPost['unit']
             //'DAILY_MONTHLY_SPECIAL' => '',
 
         ];   
@@ -216,17 +215,20 @@ class IndikatorMutu extends REST_Controller {
 
     public function updateStatusAcc_put() {
 
+        /*
         $statusUpdate = "0";
         if($this->put()['statusAcc']=="0"){
             $statusUpdate = "1";
         }else if($this->put()['statusAcc']=="1"){
             $statusUpdate = "0";
         }
+        */
 
         $dataPut = array(
-                'STATUS_ACC' => $statusUpdate,
+                'STATUS_ACC' => $this->put()['statusAcc'],
                 'UPDATE_DATE' => date("Y-m-d H:i:s"),
-                'USER_ACC' => $this->put()['userAcc']
+                'USER_ACC' => $this->put()['userAcc'],
+                'REVIEW_ULANG' => $this->put()['reviewUlang']
                 );
 
         $id = $this->put()['id'];
