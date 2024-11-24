@@ -165,8 +165,8 @@ class LembarPdsa extends REST_Controller
     {
         $lembarPdsaId = $this->input->post("id");
         $dataPost = $_POST;
-        $data = $this->composeData($dataPost, true);
         if (empty($lembarPdsaId)) {
+            $data = $this->composeData($dataPost, true);
             $id = $this->lembarPdsa_model->save($data);
             $this->saveSiklusData($dataPost, $id);
             $lembarPdsaCreated = $this->lembarPdsa_model->get($id);
@@ -178,7 +178,7 @@ class LembarPdsa extends REST_Controller
             // Util::curlAsync("https://rsudsawahbesar.jakarta.go.id/synergy-server-2024/email", $data);
             $this->set_response($lembarPdsaCreated, REST_Controller::HTTP_OK);
         } else {
-
+            $data = $this->composeData($dataPost, false);
             $result = $this->lembarPdsa_model->update($data, $lembarPdsaId);
             if ($result) {
                 $lembarPdsa = $this->lembarPdsa_model->get($lembarPdsaId);
