@@ -9,6 +9,7 @@ class AnalisaIndikator_model extends CI_Model
         ->select('an.id,an.analisa,an.rekomendasi,an.periode_analisa as period, tp.JUDUL_INDIKATOR,tp.NUMERATOR,tp.DENUMERATOR,tp.TARGET_PENCAPAIAN,tp.PERIODE_ANALISA', false)
         ->from('sikat_analisa_indikator as an')
         ->join('sikat_profile_indikator as tp', 'an.id_profile_indikator=tp.id', 'left')
+        ->where('tp.STATUS_ACC=1 ')
         ->order_by('an.create_date', 'DESC');
 
         if(isset($unit)) $this->db->where('tp.process_type =',$unit);
