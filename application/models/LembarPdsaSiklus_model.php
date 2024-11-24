@@ -38,7 +38,8 @@ class LembarPdsaSiklus_Model extends CI_Model
                 PELAJARI AS pelajari,
                 TANGGAL_MULAI AS tanggalMulaiSiklus,
                 TANGGAL_SELESAI AS tanggalSelesaiSiklus,
-                TINDAKAN_SELANJUTNYA AS tindakanSelanjutnya
+                TINDAKAN_SELANJUTNYA AS tindakanSelanjutnya,
+                FILE_PATH AS filePath
             ')
             ->from('sikat_siklus')
             ->where('LEMBAR_PDSA_ID', $id); // Ensure the correct filtering column
