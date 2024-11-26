@@ -29,10 +29,19 @@ class AnalisaIndikatorUnit_model extends CI_Model
         return $this->db->get()->row();
     }
 
+    public function getById($id) {
+        $this->db
+        ->select('*')
+        ->from('sikat_analisa_unit')
+        ->where('id = '.$id);
+        
+        return $this->db->get()->row();
+    }
+
+
     public function update($data, $id){
         $this->db
-        ->where('id_profile_indikator = '.$id)
-        ->where('periode_analisa = '.$periode);
+        ->where('id = '.$id);
         $this->db->update('sikat_analisa_unit', $data);
         // Get the number of affected rows
         $affectedRows = $this->db->affected_rows();

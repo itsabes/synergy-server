@@ -61,60 +61,44 @@ class AnalisaIndikator extends REST_Controller {
                     "id_profile_indikator" => $dataPost['idx'],
                     "create_date" => date("Y-m-d H:i:s")
             );
-            $id = $this->analisaIndikator_model->save($data);
+                
             $id = $this->analisaIndikator_model->save($data);
             if($id !== FALSE) {
                 
-                $id = $this->analisaIndikator_model->save($data);
-                if($id !== FALSE) {
-                    
-                    $analisaIndikator = $this->analisaIndikator_model->get($id);
-                    // $settings =  $this->settings_model->get();
-                    // $data = json_decode(json_encode($indikatorMutu), true);
-                    // $data['to_email'] = $settings->notif_email_ikp;
-                    // $data['to_subject'] = 'Notifikasi Registrasi Indikator Mutu';
-                    // $data['template'] = 'indikatorMutu_create';
-                    // Util::curlAsync("https://rsudsawahbesar.jakarta.go.id/synergy-server-2024/email", $data);
-                    $this->set_response($analisaIndikator, REST_Controller::HTTP_OK);
+                $analisaIndikator = $this->analisaIndikator_model->get($id);
+                // $settings =  $this->settings_model->get();
+                // $data = json_decode(json_encode($indikatorMutu), true);
+                // $data['to_email'] = $settings->notif_email_ikp;
+                // $data['to_subject'] = 'Notifikasi Registrasi Indikator Mutu';
+                // $data['template'] = 'indikatorMutu_create';
+                // Util::curlAsync("https://rsudsawahbesar.jakarta.go.id/synergy-server-2024/email", $data);
+                $this->set_response($analisaIndikator, REST_Controller::HTTP_OK);
 
-                }else{
+            }else{
 
-                    $response = [
-                        'status' => REST_Controller::HTTP_NOT_FOUND,
-                        'message' => 'create Analisa Indikator failed',
-                    ];
+                $response = [
+                    'status' => REST_Controller::HTTP_NOT_FOUND,
+                    'message' => 'create Analisa Indikator failed',
+                ];
 
-                    $this->set_response($response, REST_Controller::HTTP_NOT_FOUND);
-                }
+                $this->set_response($response, REST_Controller::HTTP_NOT_FOUND);
             }
+            
         }
     }
 
     public function index_put() {
 
         $id = $this->put()['idx'];
+        $idProfileIndikator = $this->put()['idProfileIndikator'];
+        $idAnalisa = $this->put()['idAnalisa'];
         $dataPut = $this->put();
-        $dataUnit = $this->analisaIndikatorUnit_model->get($dataPut['idx'],$dataPut['periode'],$dataPut['unit']);
-        if(!empty($dataUnit)){
-            $dataUnit =  array(
-                "update_date" => date("Y-m-d H:i:s")
-            );
+        $dataUnit =  array(
+            "update_date" => date("Y-m-d H:i:s")
+        );
 
-            $this->analisaIndikatorUnit_model->update($dataUnit);
-        }else{
-
-            $dataUnit =  array(
-                "id_profile_indikator" => $dataPut['idx'],
-                "periode_analisa" => $dataPut['periode'],
-                "unit" => $dataPut['unit'],
-                "create_date" => date("Y-m-d H:i:s"),
-                "update_date" => date("Y-m-d H:i:s")
-            );
-
-            $this->analisaIndikatorUnit_model->save($dataUnit);
-        }
-
-        if($id) {
+        $this->analisaIndikatorUnit_model->update($dataUnit,$id);
+        if(!empty($idAnalisa) && $idAnalisa!=null) {
 
             $data =  array(
                 "analisa" => $dataPut['analisa'],
@@ -122,9 +106,9 @@ class AnalisaIndikator extends REST_Controller {
                 "update_date" => date("Y-m-d H:i:s")
             );
 
-            $result = $this->analisaIndikator_model->update($data, $id);
+            $result = $this->analisaIndikator_model->update($data, $idAnalisa);
             if($result) {
-                $analisaIndikator = $this->analisaIndikator_model->get($id);
+                $analisaIndikator = $this->analisaIndikator_model->get($idAnalisa);
                 $this->set_response($analisaIndikator, REST_Controller::HTTP_OK);
             }else{
                 $response = [
@@ -135,11 +119,35 @@ class AnalisaIndikator extends REST_Controller {
             }
             
         }else{
-            $response = [
-                'status' => REST_Controller::HTTP_NOT_FOUND,
-                'message' => 'param ID can\'t be null',
-            ];
-            $this->set_response($response, REST_Controller::HTTP_NOT_FOUND);
+          
+            $data =  array(
+                "analisa" => $dataPut['analisa'],
+                "rekomendasi" => $dataPut['rekomendasi'],
+                "id_profile_indikator" => $idProfileIndikator,
+                "create_date" => date("Y-m-d H:i:s")
+            );
+                
+            $id = $this->analisaIndikator_model->save($data);
+            if($id !== FALSE) {
+                
+                $analisaIndikator = $this->analisaIndikator_model->get($id);
+                // $settings =  $this->settings_model->get();
+                // $data = json_decode(json_encode($indikatorMutu), true);
+                // $data['to_email'] = $settings->notif_email_ikp;
+                // $data['to_subject'] = 'Notifikasi Registrasi Indikator Mutu';
+                // $data['template'] = 'indikatorMutu_create';
+                // Util::curlAsync("https://rsudsawahbesar.jakarta.go.id/synergy-server-2024/email", $data);
+                $this->set_response($analisaIndikator, REST_Controller::HTTP_OK);
+
+            }else{
+
+                $response = [
+                    'status' => REST_Controller::HTTP_NOT_FOUND,
+                    'message' => 'create Analisa Indikator failed',
+                ];
+                
+                $this->set_response($response, REST_Controller::HTTP_NOT_FOUND);
+            }
         }
     }
 

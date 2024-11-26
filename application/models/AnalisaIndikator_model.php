@@ -5,7 +5,7 @@ class AnalisaIndikator_model extends CI_Model
 {
     public function getByQuery($unit) {
         $this->db
-        ->select('an.id,an.analisa,an.rekomendasi,an.periode_analisa as period, tp.JUDUL_INDIKATOR,tp.NUMERATOR,tp.DENUMERATOR,tp.TARGET_PENCAPAIAN,tp.PERIODE_ANALISA,tp.STATUS_ACC,tp.PROCESS_TYPE', false)
+        ->select('an.id,an.analisa,an.rekomendasi,an.periode_analisa as period, tp.ID,tp.JUDUL_INDIKATOR,tp.NUMERATOR,tp.DENUMERATOR,tp.TARGET_PENCAPAIAN,tp.PERIODE_ANALISA,tp.STATUS_ACC,tp.PROCESS_TYPE', false)
         ->from('sikat_analisa_indikator as an')
         ->join('sikat_profile_indikator as tp', 'an.id_profile_indikator=tp.id', 'left')
         ->where('tp.STATUS_ACC=1 ')
