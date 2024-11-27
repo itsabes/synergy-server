@@ -33,17 +33,17 @@ class AnalisaIndikator extends REST_Controller {
         
         $dataPost = $this->post();
         $id= "";
-        $dataUnit = $this->analisaIndikatorUnit_model->get($dataPost['idx'],$dataPost['periode'],$dataPost['unit']);
+        $dataUnit = $this->analisaIndikatorUnit_model->get($dataPost['periode'],$dataPost['unit']);
         if(!empty($dataUnit)){
-            $dataUnit =  array(
+
+            $data =  array(
                 "update_date" => date("Y-m-d H:i:s")
             );
 
-            $id = $this->analisaIndikatorUnit_model->update($dataUnit);
+            $id = $this->analisaIndikatorUnit_model->update($data,$dataUnit->id);
         }else{
 
             $dataUnit =  array(
-                "id_profile_indikator" => $dataPost['idx'],
                 "periode_analisa" => $dataPost['periode'],
                 "unit" => $dataPost['unit'],
                 "create_date" => date("Y-m-d H:i:s"),
@@ -58,6 +58,7 @@ class AnalisaIndikator extends REST_Controller {
             $data =  array(
                     "analisa" => $dataPost['analisa'],
                     "rekomendasi" => $dataPost['rekomendasi'],
+                    "periode_analisa" => $dataPost['periode'],
                     "id_profile_indikator" => $dataPost['idx'],
                     "create_date" => date("Y-m-d H:i:s")
             );
@@ -123,6 +124,7 @@ class AnalisaIndikator extends REST_Controller {
             $data =  array(
                 "analisa" => $dataPut['analisa'],
                 "rekomendasi" => $dataPut['rekomendasi'],
+                "periode_analisa" => $dataPost['periode'],
                 "id_profile_indikator" => $idProfileIndikator,
                 "create_date" => date("Y-m-d H:i:s")
             );

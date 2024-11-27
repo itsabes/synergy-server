@@ -19,11 +19,11 @@ class AnalisaIndikatorUnit_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function get($id,$periode) {
+    public function get($periode,$unit) {
         $this->db
         ->select('*')
         ->from('sikat_analisa_unit')
-        ->where('id_profile_indikator = '.$id)
+        ->where('unit = '.$unit)
         ->where('periode_analisa = '.$periode);
         
         return $this->db->get()->row();
