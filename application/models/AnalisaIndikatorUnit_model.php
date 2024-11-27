@@ -23,8 +23,8 @@ class AnalisaIndikatorUnit_model extends CI_Model
         $this->db
         ->select('*')
         ->from('sikat_analisa_unit')
-        ->where('unit = '.$unit)
-        ->where('periode_analisa = '.$periode);
+        ->where('unit = ',$unit)
+        ->where('periode_analisa =',$periode);
         
         return $this->db->get()->row();
     }
@@ -33,7 +33,7 @@ class AnalisaIndikatorUnit_model extends CI_Model
         $this->db
         ->select('*')
         ->from('sikat_analisa_unit')
-        ->where('id = '.$id);
+        ->where('id = ',$id);
         
         return $this->db->get()->row();
     }

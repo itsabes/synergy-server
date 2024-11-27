@@ -25,7 +25,16 @@ class AnalisaIndikator_model extends CI_Model
         $this->db
         ->select('*')
         ->from('sikat_analisa_indikator')
-        ->where('id = '.$id);
+        ->where('id',$id);
+        
+        return $this->db->get()->row();
+    }
+
+    public function getWhere($where) {
+        $this->db
+        ->select('*')
+        ->from('sikat_analisa_indikator')
+        ->where($where);
         
         return $this->db->get()->row();
     }
