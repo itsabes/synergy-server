@@ -66,7 +66,6 @@ class IndikatorMutu extends REST_Controller {
 
     public function composeData($dataPost,$isInsert){
         $data = [
-            //'LEVEL' => $this->getLevel($dataPost['unit'],$dataPost['tahun']),
             'JUDUL_INDIKATOR' => $dataPost['judulIndikator'],
             'TAHUN' => $dataPost['tahun'],
             //'ISI_POPULASI' => '',
@@ -112,6 +111,7 @@ class IndikatorMutu extends REST_Controller {
         if ($isInsert) {
             $data['CREATE_DATE'] = date("Y-m-d H:i:s");
             $data['STATUS_ACC'] = 0;
+            $data['ORDERS'] = $this->getOrders($dataPost['unit'],$dataPost['tahun']);
         } else {
             $data['UPDATE_DATE'] = date("Y-m-d H:i:s");
         }
@@ -130,6 +130,19 @@ class IndikatorMutu extends REST_Controller {
         }
 
         return $level;
+    }
+
+    public function getOrders($unit,$tahun){
+        //query
+        $defaultOrders = 1;
+        $orders = $this->sikat_profile_indikator_model->getOrders($unit,$tahun);
+        if (isset($orders[0]->result) && $orders[0]->result != null) {
+            $orders = $orders[0]->result;
+        }else{
+            $orders = $defaultOrders;
+        }
+
+        return $orders;
     }
 
     public function getProcessType($unit){
