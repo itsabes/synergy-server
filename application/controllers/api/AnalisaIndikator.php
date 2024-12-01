@@ -44,7 +44,7 @@ class AnalisaIndikator extends REST_Controller {
         if(!empty($result)){
             $response = [
                 'status' => REST_Controller::HTTP_NOT_FOUND,
-                'message' => 'create Analisa Indikator failed, Already Exist with Same Period',
+                'message' => 'Gagal membuat Analisa Indikator, sudah ada dengan periode yang sama.',
             ];
 
             $this->set_response($response, REST_Controller::HTTP_NOT_FOUND);
@@ -171,7 +171,7 @@ class AnalisaIndikator extends REST_Controller {
 
                 $response = [
                     'status' => REST_Controller::HTTP_NOT_FOUND,
-                    'message' => 'create Analisa Indikator failed, Already Exist with Same Period',
+                    'message' => 'Gagal membuat Analisa Indikator, sudah ada dengan periode yang sama.',
                 ];
                 
                 $this->set_response($response, REST_Controller::HTTP_NOT_FOUND);
