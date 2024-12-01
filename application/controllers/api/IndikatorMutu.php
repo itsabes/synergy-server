@@ -66,7 +66,7 @@ class IndikatorMutu extends REST_Controller {
 
     public function composeData($dataPost,$isInsert){
         $data = [
-            'LEVEL' => $this->getLevel($dataPost['unit'],$dataPost['tahun']),
+            //'LEVEL' => $this->getLevel($dataPost['unit'],$dataPost['tahun']),
             'JUDUL_INDIKATOR' => $dataPost['judulIndikator'],
             'TAHUN' => $dataPost['tahun'],
             //'ISI_POPULASI' => '',
@@ -223,19 +223,26 @@ class IndikatorMutu extends REST_Controller {
             $statusUpdate = "0";
         }
         */
+        $id = $this->put()['id'];
+        $indikatorMutu = $this->indikatorMutu_model->get($id);
+        $processType = $indikatorMutu->PROCESS_TYPE;
+        $tahun = $indikatorMutu->TAHUN;
+        $level = 0;
+        if($this->put()['statusAcc']=="1"){
+            $level = $this->getLevel($processType,$tahun);
+        }
 
         $dataPut = array(
-                'STATUS_ACC' => $this->put()['statusAcc'],
-                'UPDATE_DATE' => date("Y-m-d H:i:s"),
-                'USER_ACC' => $this->put()['userAcc'],
-                'REVIEW_ULANG' => $this->put()['reviewUlang']
-                );
+            'STATUS_ACC' => $this->put()['statusAcc'],
+            'UPDATE_DATE' => date("Y-m-d H:i:s"),
+            'USER_ACC' => $this->put()['userAcc'],
+            'LEVEL' => $level,
+            'REVIEW_ULANG' => $this->put()['reviewUlang']
+        );
 
-        $id = $this->put()['id'];
         if($id) {
             $result = $this->indikatorMutu_model->update($dataPut, $id);
             if($result) {
-                $indikatorMutu = $this->indikatorMutu_model->get($id);
                 $this->set_response($indikatorMutu, REST_Controller::HTTP_OK);
             }else{
                 $response = [
