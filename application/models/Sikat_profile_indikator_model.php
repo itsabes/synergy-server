@@ -38,6 +38,9 @@ class Sikat_Profile_Indikator_Model extends CI_Model
 
         if(isset($tahun)) $this->db->where('pro.tahun =',$tahun);
         if(isset($unit)) $this->db->where('pro.process_type =',$unit);
+
+        // Tambahkan pengurutan berdasarkan kolom 'orders' secara ascending
+        $this->db->order_by('pro.orders', 'ASC');
         return $this->db->get()->result_array();
     }
 
