@@ -45,13 +45,13 @@ class Dynamic extends REST_Controller {
                 $combinedNumerator[$item->ID] = [
                     'ID'        => $item->ID,
                     'JUDUL' => $item->NUMERATOR,
-                    'LEVEL' => $iterator
+                    'ORDERS' =>$item->ORDERS
                 ];
 
                 $combinedDeNumerator[$item->ID] = [
                     'ID'        => $item->ID,
                     'JUDUL' => $item->DENUMERATOR,
-                    'LEVEL' => $iterator
+                    'ORDERS' =>$item->ORDERS
                 ];
             }
 
@@ -61,7 +61,7 @@ class Dynamic extends REST_Controller {
         $finalCombined = array_merge($combinedNumerator, $combinedDeNumerator);
         // Mengurutkan $finalCombined berdasarkan 'LEVEL'
         usort($finalCombined, function ($a, $b) {
-            return $a['LEVEL'] <=> $b['LEVEL']; // Menggunakan spaceship operator untuk pengurutan
+            return $a['ORDERS'] <=> $b['ORDERS']; // Menggunakan spaceship operator untuk pengurutan
         });
 
         $this->set_response($finalCombined, REST_Controller::HTTP_OK);
