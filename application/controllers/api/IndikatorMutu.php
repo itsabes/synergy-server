@@ -184,7 +184,7 @@ class IndikatorMutu extends REST_Controller {
         $id = $this->put()['id'];
         if($id) {
             $result = $this->indikatorMutu_model->update($dataPut, $id);
-            if($result) {
+            if($result !== FALSE) {
                 $indikatorMutu = $this->indikatorMutu_model->get($id);
                 $this->set_response($indikatorMutu, REST_Controller::HTTP_OK);
             }else{
