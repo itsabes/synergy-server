@@ -18,20 +18,24 @@ class Dynamic extends REST_Controller {
     public function getHeaderData_get() {
         
         $process_type = $this->get('proc_type');
+        $year = $this->get('year');
         $dynamicData = array();
-        $where = array(
-            "process_type" =>  $process_type
-        );
-        $dynamicData=$this->sikat_profile_indikator_model->getByQuery(null,$process_type,);
+        /*$where = array(
+            "process_type" =>  $process_type,
+            "tahun" =>  $year
+        );*/
+        $dynamicData=$this->sikat_profile_indikator_model->getByQuery($year,$process_type);
         $this->set_response($dynamicData, REST_Controller::HTTP_OK);
     }
 
     public function getHeaderDataFormA_get() {
         
         $process_type = $this->get('proc_type');
+        $year = $this->get('year');
         $dynamicData = array();
         $where = array(
             "process_type" =>  $process_type,
+            "tahun" =>  $year,
             "status_acc"   => '1'
         );
         $dynamicData=$this->sikat_profile_indikator_model->get_where($where);
