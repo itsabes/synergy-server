@@ -126,7 +126,7 @@ class AnalisaIndikator extends REST_Controller {
             );
 
             $result = $this->analisaIndikator_model->update($data, $idAnalisa);
-            if($result) {
+            if($result !== FALSE) {
                 $analisaIndikator = $this->analisaIndikator_model->get($idAnalisa);
                 $this->set_response($analisaIndikator, REST_Controller::HTTP_OK);
             }else{

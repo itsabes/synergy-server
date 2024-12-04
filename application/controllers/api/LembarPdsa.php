@@ -204,7 +204,7 @@ class LembarPdsa extends REST_Controller
         $data = $this->composeData($dataPut, true);
         if ($id) {
             $result = $this->lembarPdsa_model->update($data, $id);
-            if ($result) {
+            if ($result !== FALSE) {
                 $lembarPdsa = $this->lembarPdsa_model->get($id);
                 $this->saveSiklusData($dataPut, $id);
                 $this->set_response($lembarPdsa, REST_Controller::HTTP_OK);
