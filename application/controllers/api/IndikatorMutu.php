@@ -182,7 +182,7 @@ class IndikatorMutu extends REST_Controller {
 
         $dataPut = $this->composeData($this->put(),false);
         $id = $this->put()['id'];
-        if($id) {
+        if(!empty($id)) {
             $result = $this->indikatorMutu_model->update($dataPut, $id);
             if($result !== FALSE) {
                 $indikatorMutu = $this->indikatorMutu_model->get($id);
@@ -206,7 +206,7 @@ class IndikatorMutu extends REST_Controller {
 
     public function delete_get() {
         $id = $this->get('id');
-        if($id) {
+        if(!empty($id)) {
             $result = $this->indikatorMutu_model->delete($id);
             if($result) {
                 $this->set_response('deleted', REST_Controller::HTTP_OK);
@@ -253,7 +253,7 @@ class IndikatorMutu extends REST_Controller {
             'REVIEW_ULANG' => $this->put()['reviewUlang']
         );
 
-        if($id) {
+        if(!empty($id)) {
             $result = $this->indikatorMutu_model->update($dataPut, $id);
             if($result) {
                 $this->set_response($indikatorMutu, REST_Controller::HTTP_OK);
