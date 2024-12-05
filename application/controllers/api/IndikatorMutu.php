@@ -249,6 +249,7 @@ class IndikatorMutu extends REST_Controller {
             'STATUS_ACC' => $this->put()['statusAcc'],
             'UPDATE_DATE' => date("Y-m-d H:i:s"),
             'USER_ACC' => $this->put()['userAcc'],
+            'ACC_DATE' => date("Y-m-d H:i:s"),
             'LEVEL' => $level,
             'REVIEW_ULANG' => $this->put()['reviewUlang']
         );
