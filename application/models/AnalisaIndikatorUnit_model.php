@@ -4,13 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class AnalisaIndikatorUnit_model extends CI_Model
 {
 
-    public function getByQuery($unit) {
+    public function getByQuery($unit,$tahun) {
         $this->db
         ->select('*')
         ->from('sikat_analisa_unit as an')
         ->order_by('an.create_date', 'DESC');
 
         if(isset($unit)) $this->db->where('an.unit =',$unit);
+        if(isset($tahun)) $this->db->where('an.tahun =',$tahun);
         return $this->db->get()->result_array();
     }
 
@@ -19,12 +20,13 @@ class AnalisaIndikatorUnit_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function get($periode,$unit) {
+    public function get($periode,$unit,$tahun) {
         $this->db
         ->select('*')
         ->from('sikat_analisa_unit')
         ->where('unit = ',$unit)
-        ->where('periode_analisa =',$periode);
+        ->where('periode_analisa =',$periode)
+        ->where('tahun =',$tahun);
         
         return $this->db->get()->row();
     }

@@ -17,15 +17,17 @@ class AnalisaIndikator extends REST_Controller {
 
     public function getByQuery_get() {
         $unit = $this->get('unit');
+        $tahun = $this->get('tahun');
         $indikator = array();
-        $indikator =  $this->analisaIndikator_model->getByQuery($unit);
+        $indikator =  $this->analisaIndikator_model->getByQuery($unit,$tahun);
         $this->set_response($indikator, REST_Controller::HTTP_OK);
     }
 
     public function getByQueryUnit_get() {
         $unit = $this->get('unit');
+        $tahun = $this->get('tahun');
         $indikator = array();
-        $indikator =  $this->analisaIndikatorUnit_model->getByQuery($unit);
+        $indikator =  $this->analisaIndikatorUnit_model->getByQuery($unit,$tahun);
         $this->set_response($indikator, REST_Controller::HTTP_OK);
     }
 
@@ -33,11 +35,12 @@ class AnalisaIndikator extends REST_Controller {
         
         $dataPost = $this->post();
         $id= "";
-        $dataUnit = $this->analisaIndikatorUnit_model->get($dataPost['periode'],$dataPost['unit']);
+        $dataUnit = $this->analisaIndikatorUnit_model->get($dataPost['periode'],$dataPost['unit'],$dataPost['tahun']);
         $where = array(
             "unit" => $dataPost['unit'],
             "id_profile_indikator" => $dataPost['idx'],
             "periode_analisa" => $dataPost['periode'],
+            "tahun" => $dataPost['tahun'],
         );
 
         $result = $this->analisaIndikator_model->getWhere($where);
@@ -62,6 +65,7 @@ class AnalisaIndikator extends REST_Controller {
                 $dataUnit =  array(
                     "periode_analisa" => $dataPost['periode'],
                     "unit" => $dataPost['unit'],
+                    "tahun" => $dataPost['tahun'],
                     "create_date" => date("Y-m-d H:i:s"),
                     "update_date" => date("Y-m-d H:i:s")
                 );
@@ -74,6 +78,7 @@ class AnalisaIndikator extends REST_Controller {
                 $data =  array(
                         "analisa" => $dataPost['analisa'],
                         "unit" => $dataPost['unit'],
+                        "tahun" => $dataPost['tahun'],
                         "rekomendasi" => $dataPost['rekomendasi'],
                         "periode_analisa" => $dataPost['periode'],
                         "id_profile_indikator" => $dataPost['idx'],
@@ -122,6 +127,7 @@ class AnalisaIndikator extends REST_Controller {
             $data =  array(
                 "analisa" => $dataPut['analisa'],
                 "rekomendasi" => $dataPut['rekomendasi'],
+                "tahun" => $dataPut['tahun'],
                 "update_date" => date("Y-m-d H:i:s")
             );
 
@@ -143,6 +149,7 @@ class AnalisaIndikator extends REST_Controller {
                 "analisa" => $dataPut['analisa'],
                 "rekomendasi" => $dataPut['rekomendasi'],
                 "unit" => $dataPut['unit'],
+                "tahun" => $dataPut['tahun'],
                 "periode_analisa" => $dataPut['periode'],
                 "id_profile_indikator" => $idProfileIndikator,
                 "create_date" => date("Y-m-d H:i:s")
@@ -150,6 +157,7 @@ class AnalisaIndikator extends REST_Controller {
 
             $where = array(
                 "unit" => $dataPut['unit'],
+                "tahun" => $dataPut['tahun'],
                 "id_profile_indikator" => $idProfileIndikator,
                 "periode_analisa" => $dataPut['periode'],
             );
