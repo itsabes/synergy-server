@@ -101,6 +101,15 @@ class IndikatorMutu_Model extends CI_Model
         return $this->db->get()->row();
     }
 
+    public function get_list_order($order) {
+        $this->db
+        ->select('*')
+        ->from('sikat_profile_indikator')
+        ->where('orders > '.$order);
+        
+        return $this->db->get()->result();
+    }
+
     /*
     public function allPetugas()
     {

@@ -207,7 +207,19 @@ class IndikatorMutu extends REST_Controller {
     public function delete_get() {
         $id = $this->get('id');
         if(!empty($id)) {
+            $indikatorMutu = $this->indikatorMutu_model->get($id);
+            $order = $indikatorMutu->ORDERS;
+            $listOrder = $this->indikatorMutu_model->get_list_order($order);
             $result = $this->indikatorMutu_model->delete($id);
+            if($listOrder){
+                foreach ($listOrder as $item) {
+                    $dataPut = array(
+                        'ORDERS' => $item->ORDERS - 1
+                    );
+                    $this->indikatorMutu_model->update($dataPut,$item->ID);
+                }
+            }
+
             if($result) {
                 $this->set_response('deleted', REST_Controller::HTTP_OK);
             }else{
