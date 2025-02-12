@@ -29,9 +29,9 @@ class Sikat_Profile_Indikator_Model extends CI_Model
         $this->db
         ->select('pro.*', false)
         ->from('sikat_profile_indikator as pro')
-        ->join('sikat_profile_type as tp', 'pro.process_type=tp.type', 'left')
+        ->join('sikat_profile_type as tp', 'pro.process_type=tp.type', 'left');
        // ->join('sikat_analisa_indikator as an', 'an.id_profile_indikator=pro.id', 'left')
-        ->order_by('pro.create_date', 'DESC');
+       // ->order_by('pro.create_date', 'DESC');
         if (!isset($tahun)) {
             $this->db->limit(250);
         }
