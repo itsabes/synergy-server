@@ -111,7 +111,7 @@ class IndikatorMutu extends REST_Controller {
         if ($isInsert) {
             $data['CREATE_DATE'] = date("Y-m-d H:i:s");
             $data['STATUS_ACC'] = 0;
-            $data['ORDERS'] = $this->getOrders($dataPost['unit'],$dataPost['tahun']);
+            //$data['ORDERS'] = $this->getOrders($dataPost['unit'],$dataPost['tahun']);
         } else {
             $data['UPDATE_DATE'] = date("Y-m-d H:i:s");
         }
@@ -207,10 +207,11 @@ class IndikatorMutu extends REST_Controller {
     public function delete_get() {
         $id = $this->get('id');
         if(!empty($id)) {
-            $indikatorMutu = $this->indikatorMutu_model->get($id);
-            $order = $indikatorMutu->ORDERS;
-            $listOrder = $this->indikatorMutu_model->get_list_order($order);
+            //$indikatorMutu = $this->indikatorMutu_model->get($id);
+            //$order = $indikatorMutu->ORDERS;
+            //$listOrder = $this->indikatorMutu_model->get_list_order($order);
             $result = $this->indikatorMutu_model->delete($id);
+            /*
             if($listOrder){
                 foreach ($listOrder as $item) {
                     $dataPut = array(
@@ -219,6 +220,7 @@ class IndikatorMutu extends REST_Controller {
                     $this->indikatorMutu_model->update($dataPut,$item->ID);
                 }
             }
+            */
 
             if($result) {
                 $this->set_response('deleted', REST_Controller::HTTP_OK);
@@ -253,10 +255,33 @@ class IndikatorMutu extends REST_Controller {
         $processType = $indikatorMutu->PROCESS_TYPE;
         $tahun = $indikatorMutu->TAHUN;
         $level = 0;
+        $dataPut = array();
         if($this->put()['statusAcc']=="1"){
             $level = $this->getLevel($processType,$tahun);
-        }
+            $order = $this->getOrders($processType,$tahun);
 
+            $dataPut = array(
+                'STATUS_ACC' => $this->put()['statusAcc'],
+                'UPDATE_DATE' => date("Y-m-d H:i:s"),
+                'USER_ACC' => $this->put()['userAcc'],
+                'ACC_DATE' => date("Y-m-d H:i:s"),
+                'LEVEL' => $level,
+                'ORDER' => $order,
+                'REVIEW_ULANG' => $this->put()['reviewUlang']
+            );
+
+        }else{
+
+            $dataPut = array(
+                'STATUS_ACC' => $this->put()['statusAcc'],
+                'UPDATE_DATE' => date("Y-m-d H:i:s"),
+                'USER_ACC' => $this->put()['userAcc'],
+                'ACC_DATE' => date("Y-m-d H:i:s"),
+                'LEVEL' => $level,
+                'REVIEW_ULANG' => $this->put()['reviewUlang']
+            );
+        }
+        /*
         $dataPut = array(
             'STATUS_ACC' => $this->put()['statusAcc'],
             'UPDATE_DATE' => date("Y-m-d H:i:s"),
@@ -265,6 +290,7 @@ class IndikatorMutu extends REST_Controller {
             'LEVEL' => $level,
             'REVIEW_ULANG' => $this->put()['reviewUlang']
         );
+        */
 
         if(!empty($id)) {
             $result = $this->indikatorMutu_model->update($dataPut, $id);
